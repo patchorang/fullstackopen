@@ -1,47 +1,55 @@
-const Header = ({ name }) => {
-  return <h1>{name}</h1>;
-};
+import { useState } from "react";
 
-const Part = ({ part, exercises }) => {
+const Button = ({ handleClick, children }) => (
+  <button onClick={handleClick}>{children}</button>
+);
+
+const StatLine = ({ label, value }) => (
+  <tr>
+    <td>{label} </td>
+    <td>{value} </td>
+  </tr>
+);
+
+const Statistics = ({ good, bad, neutral }) => {
+  const getAverage = () => {
+    return good + (bad * -1) / (good + neutral + bad);
+  };
+
+  const getPositive = () => {
+    return (good / (good + neutral + bad)) * 100 + "%";
+  };
+
+  if (good + bad + neutral === 0) {
+    return <div>No feedback yet</div>;
+  }
   return (
-    <p>
-      {part} {exercises}
-    </p>
+    <table>
+      <tbody>
+        <StatLine label="Good" value={good} />
+        <StatLine label="Neutral" value={neutral} />
+        <StatLine label="Bad" value={bad} />
+        <StatLine label="average" value={getAverage()} />
+        <StatLine label="positvie" value={getPositive()} />
+      </tbody>
+    </table>
   );
-};
-
-const Content = ({ exercise1, exercise2, exercise3 }) => {
-  return (
-    <div>
-      <Part part={exercise1.part} exercises={exercise1.num} />
-      <Part part={exercise2.part} exercises={exercise2.num} />
-      <Part part={exercise2.part} exercises={exercise3.num} />
-    </div>
-  );
-};
-
-const Total = ({ total }) => {
-  return <p>Number of exercises {total}</p>;
 };
 
 const App = () => {
-  const course = "Half Stack application development";
-  const part1 = "Fundamentals of React";
-  const exercises1 = 10;
-  const part2 = "Using props to pass data";
-  const exercises2 = 7;
-  const part3 = "State of a component";
-  const exercises3 = 14;
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
   return (
     <div>
-      <Header name={course} />
-      <Content
-        exercise1={{ part: part1, num: exercises1 }}
-        exercise2={{ part: part2, num: exercises2 }}
-        exercise3={{ part: part3, num: exercises3 }}
-      />
-      <Total total={exercises1 + exercises2 + exercises3} />
+      <h1>Give feedback</h1>
+      <Button handleClick={() => setGood(good + 1)}>Good</Button>
+      <Button handleClick={() => setNeutral(neutral + 1)}>Neutral</Button>
+      <Button handleClick={() => setBad(bad + 1)}>Bad</Button>
+      <h1>Statistics</h1>
+      <Statistics good={good} bad={bad} neutral={neutral} />
     </div>
   );
 };
