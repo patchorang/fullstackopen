@@ -2,19 +2,18 @@ POST http://localhost:3001/api/notes/
 content-type: application/json
 
 {
-  "content": "DID this note work?????",
-  "important": "true",
-  "userId": "63c56aeb31b53f7d87fd6de2"
+  "content": "test",
+  "important": true
 }
 
 ###
-DELETE http://localhost:3001/api/notes/63c3f99df7a39ae76f0ae6cc
+DELETE http://localhost:3001/api/notes/65994d33ee7a1f7bdfefbad1
 
 ###
 GET http://localhost:3001/api/notes/
 
 ###
-PUT http://localhost:3001/api/notes/63c3fbf00f227ecc873ce060
+PUT http://localhost:3001/api/notes/659a8e7ece70552b69c695c6
 content-type: application/json
 
 {
@@ -22,23 +21,3 @@ content-type: application/json
   "important": false
 }
 
-
-###
-POST http://localhost:3001/api/users
-content-type: application/json
-
-{
-  "name": "Adam Menz2",
-  "username": "adammenz2",
-  "password": "pizza"
-}
-
-
-###
-POST http://localhost:3001/api/login
-content-type: application/json
-
-{
-  "username": "adammenz2",
-  "password": "pizza"
-}

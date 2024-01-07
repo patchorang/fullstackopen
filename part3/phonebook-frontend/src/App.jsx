@@ -50,10 +50,15 @@ const App = () => {
           .catch(() => showErrorMessage("This person no longer exists"));
       }
     } else {
-      personService.create(newPerson).then((person) => {
-        setPersons(persons.concat(person));
-        showSuccessMessage("Person created");
-      });
+      personService
+        .create(newPerson)
+        .then((person) => {
+          setPersons(persons.concat(person));
+          showSuccessMessage("Person created");
+        })
+        .catch((error) => {
+          showErrorMessage(error.response.data.error);
+        });
     }
     setNewName("");
     setNewNumber("");
