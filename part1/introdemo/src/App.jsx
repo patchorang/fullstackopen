@@ -1,13 +1,22 @@
+import { useState } from 'react'
+
+const Button = ({ onClick, text }) => {
+  return <button onClick={onClick}>{text}</button>
+}
+
+const Counter = ({ count }) => {
+  return <div>{count}</div>
+}
+
 const App = () => {
-  const friends = [
-    { name: 'Peter', age: 4 },
-    { name: 'Maya', age: 10 },
-  ]
+  const [counter, setCounter] = useState(0)
 
   return (
     <div>
-      <p>{friends[0].name}</p>
-      <p>{friends[1].name}</p>
+      <Counter count={counter} />
+      <Button onClick={() => setCounter(counter + 1)} text="add" />
+      <Button onClick={() => setCounter(counter - 1)} text="minus" />
+      <Button onClick={() => setCounter(0)} text="0" />
     </div>
   )
 }
